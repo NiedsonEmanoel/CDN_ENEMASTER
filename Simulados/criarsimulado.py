@@ -5,8 +5,7 @@ import pandas as pd
 import random
 import time
 from datetime import datetime
-
-
+from urllib.parse import quote
 
 urlItens = "https://github.com/NiedsonEmanoel/NiedsonEmanoel/raw/main/enem/An%C3%A1lise%20de%20Itens/OrdenarPorTri/gerador/provasOrdernadasPorTri.csv"
 
@@ -86,7 +85,11 @@ def grn():
 
 data_formatada = datetime.now().strftime("%d-%m-%Y")
 name = f"{flashnamesa(Disciplina.upper())} - {grn()}{int(round((resultado.max()['theta_065']+resultado.min()['theta_065'])/2,0))} - {data_formatada}".upper()
-link = f"https://raw.githubusercontent.com/NiedsonEmanoel/CDN_ENEMASTER/main/Simulados/{name}.csv"
+# Formatar o nome para uso em um link
+nome_formatado = quote(name)
+
+# Criar o link
+link = f"https://raw.githubusercontent.com/NiedsonEmanoel/CDN_ENEMASTER/main/Simulados/{nome_formatado}.csv"
 
 print(name)
 print(link)
