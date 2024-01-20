@@ -86,8 +86,10 @@ def grn():
 
 data_formatada = datetime.now().strftime("%d-%m-%Y")
 name = f"{flashnamesa(Disciplina.upper())} - {grn()}{int(round((resultado.max()['theta_065']+resultado.min()['theta_065'])/2,0))} - {data_formatada}".upper()
+link = f"https://raw.githubusercontent.com/NiedsonEmanoel/CDN_ENEMASTER/main/Simulados/{name}.csv"
 
 print(name)
+print(link)
 resultado.to_csv(f"{name}.csv", encoding='utf-8', decimal=',')
 
 
