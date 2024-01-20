@@ -1,4 +1,4 @@
-Disciplina = "MT" 
+Disciplina = "CN" 
 
 import numpy as np
 import pandas as pd
@@ -67,7 +67,7 @@ print('Proficiência QMaisFacil: '+str(resultado.min()['theta_065']))
 
 def flashnamesa(SG):
     if SG == 'CN': return 'Natureza'
-    elif SG == 'MT': return 'Matemática'
+    elif SG == 'MT': return 'Matematica'
     elif SG == 'CH': return 'Humanas'
     else: return 'Linguagens'
 
@@ -93,6 +93,19 @@ link = f"https://raw.githubusercontent.com/NiedsonEmanoel/CDN_ENEMASTER/main/Sim
 
 print(name)
 print(link)
+
 resultado.to_csv(f"{name}.csv", encoding='utf-8', decimal=',')
+
+try:
+    df = pd.read_csv('simulate_cdn.csv')
+except FileNotFoundError:
+    df = pd.DataFrame(columns=['Name', 'Link'])
+
+# Adicionar novos dados ao DataFrame
+df = pd.concat([df, pd.DataFrame({'Name': [name], 'Link': [link]})], ignore_index=True)
+
+# Salvar o DataFrame atualizado como um arquivo CSV
+df.to_csv('simulate_cdn.csv', index=False, encoding='utf-8', decimal=',')
+
 
 
