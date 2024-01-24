@@ -20,14 +20,14 @@ def imageApi(code):
     return imagem
 
 def ocrImage(code):
-    output_file='../1. Itens BNI_/TXT/'+str(code)+'.txt'
+    output_file='../Banco de Itens/TXT/'+str(code)+'.txt'
     if os.path.exists(output_file):
         with open(output_file, 'r', encoding='utf-8') as file:
             return file.read()
 
     code = 'https://raw.githubusercontent.com/NiedsonEmanoel/NiedsonEmanoel/main/enem/An%C3%A1lise%20de%20Itens/OrdenarPorTri/1.%20Itens%20BNI_/'+str(str(code) + '.png')
     try:
-        output_mg='../1. Itens BNI_/'+str(code)+'.png'
+        output_mg='../Banco de Itens/'+str(code)+'.png'
         if os.path.exists(output_mg):
             response = requests.get(code)
             img_array = np.array(bytearray(response.content), dtype=np.uint8)
