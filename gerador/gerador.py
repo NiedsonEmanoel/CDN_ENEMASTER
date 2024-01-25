@@ -168,8 +168,11 @@ def get_prova_string(ano, co_prova):
         else:
             return 'PROVA CINZA PPL'
    
-def thetaToCsv(provas, dfItens):
-    dfItens = dfItens[dfItens.CO_PROVA.isin(provas)]
+def thetaToCsv(provas, dfItens, inProve):
+    if inProve == 1:
+        dfItens = dfItens[dfItens.CO_PROVA.isin(provas)]
+        dfItens['CO_PROVA'] = dfItens.apply(lambda row: get_prova_string(row['ANO'], row['CO_PROVA']), axis=1)
+        
     dfItens["theta_065"] = 0
     countt = 1
     numero_de_linhas = len(dfItens)
@@ -180,7 +183,7 @@ def thetaToCsv(provas, dfItens):
     dfItens["PercentEspAcerto"] = 0
     dfItens['IN_ENCCEJA'] = 0
     dfItens['IN_ENEM'] = 1
-    dfItens['CO_PROVA'] = dfItens.apply(lambda row: get_prova_string(row['ANO'], row['CO_PROVA']), axis=1)
+
 
     for i in dfItens.index:    
         dfItens.loc[i, "theta_065"] = find_theta(
@@ -244,15 +247,15 @@ def Make():
 
 
     #Colocando as proficiências nas provas e nos dataframes indicados
-    dItens2014 = thetaToCsv(provas2014, dItens2014)
-    dItens2015 = thetaToCsv(provas2015, dItens2015)
-    dItens2016 = thetaToCsv(provas2016, dItens2016)
-    dItens2017 = thetaToCsv(provas2017, dItens2017)
-    dItens2018 = thetaToCsv(provas2018, dItens2018)
-    dItens2019 = thetaToCsv(provas2019, dItens2019)
-    dItens2020 = thetaToCsv(provas2020, dItens2020)
-    dItens2021 = thetaToCsv(provas2021, dItens2021)
-    dItens2022 = thetaToCsv(provas2022, dItens2022)
+    dItens2014 = thetaToCsv(provas2014, dItens2014, 1)
+    dItens2015 = thetaToCsv(provas2015, dItens2015, 1)
+    dItens2016 = thetaToCsv(provas2016, dItens2016, 1)
+    dItens2017 = thetaToCsv(provas2017, dItens2017, 1)
+    dItens2018 = thetaToCsv(provas2018, dItens2018, 1)
+    dItens2019 = thetaToCsv(provas2019, dItens2019, 1)
+    dItens2020 = thetaToCsv(provas2020, dItens2020, 1)
+    dItens2021 = thetaToCsv(provas2021, dItens2021, 1)
+    dItens2022 = thetaToCsv(provas2022, dItens2022, 1)
 
     dEnc2017 = pd.read_csv('ITENS_PROVA_2017_ENCCEJA.csv',sep=";", encoding="latin-1")
     dEnc2018 = pd.read_csv('ITENS_PROVA_2017_ENCCEJA.csv',sep=";", encoding="latin-1")
