@@ -16,16 +16,17 @@ def tri_3pl_enem(theta, a, b, c):
     
 def imageApi(code):
     code = str(str(code) + '.png')
-    imagem = 'https://niedsonemanoel.com.br/enem/An%C3%A1lise%20de%20Itens/OrdenarPorTri/1.%20Itens%20BNI_/' + code
+    imagem = 'https://cdn.enemaster.app.br/Banco%20de%20Itens/' + code
     return imagem
 
 def ocrImage(code):
+    lfover = []
     output_file='../Banco de Itens/TXT/'+str(code)+'.txt'
     if os.path.exists(output_file):
         with open(output_file, 'r', encoding='utf-8') as file:
             return file.read()
 
-    code = 'https://raw.githubusercontent.com/NiedsonEmanoel/NiedsonEmanoel/main/enem/An%C3%A1lise%20de%20Itens/OrdenarPorTri/1.%20Itens%20BNI_/'+str(str(code) + '.png')
+    code = 'https://cdn.enemaster.app.br/Banco%20de%20Itens/'+str(str(code) + '.png')
     try:
         output_mg='../Banco de Itens/'+str(code)+'.png'
         if os.path.exists(output_mg):
@@ -42,10 +43,13 @@ def ocrImage(code):
                 print(f"Arquivo '{output_file}' criado com sucesso!")
         else:
             return 'N/A'
+            lfover.append(code)
             print('sem tt')
     except Exception as e:
         print(f"Ocorreu um erro: {e}")
         ocrT = 'N/A'
+    
+    print(lfover)
     return ocrT
 
 # Encontrando o valor de theta que resulta em targ (padrão 0.65)
@@ -258,10 +262,11 @@ def Make():
     dItens2020 = dItens2020.query("TP_VERSAO_DIGITAL not in [1]")
     del dItens2020['TP_VERSAO_DIGITAL']
 
-    result = pd.concat([dEnc2017, dEnc2018, dEnc2019, dEnc2020,dItens2014, dItens2015, dItens2016, dItens2017, dItens2018, dItens2019, dItens2020, dItens2021, dItens2022])
+    #result = pd.concat([dEnc2017, dEnc2018, dEnc2019, dEnc2020,dItens2014, dItens2015, dItens2016, dItens2017, dItens2018, dItens2019, dItens2020, dItens2021, dItens2022])
+    result = pd.concat([dItens2014, dItens2015, dItens2016, dItens2017, dItens2018, dItens2019, dItens2020, dItens2021, dItens2022])
     result['CO_HABILIDADE'].fillna(31, inplace=True)
-    result.to_csv('provasOrdernadasPorTri2.csv', index=False, encoding='utf-8', decimal=',')
-    result.to_excel("provasOrdernadasPorTri2.xlsx")
+    result.to_csv('provasOrdernadasPorTri.csv', index=False, encoding='utf-8', decimal=',')
+    result.to_excel("provasOrdernadasPorTri.xlsx")
 
     return result
 
